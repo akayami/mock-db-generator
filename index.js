@@ -24,11 +24,6 @@ module.exports = function(options) {
 							connection.close();
 							return;
 						}
-						options.conn.query('DROP DATABASE IF EXISTS ??', [options.schemaName], function(err, result) {
-							console.log('Test Data Cleaned Up')
-							console.log('Done');
-							options.conn.close();
-						})
 					});
 				});
 			});
