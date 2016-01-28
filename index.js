@@ -82,13 +82,35 @@ module.exports = function(conn, dbname, structSQL) {
 
 	return {
 		make: function(data) {
-			data.forEach(function(block) {
+			var map = {};
+			data.forEach(function(block, blockIndex) {
 				for (var table in block) {
+					if(!map[table]) {
+						map[table] = [];
+					}
+					map[table].push(blockIndex);
+
 					block[table].forEach(function(item) {
 						routine.push(function(conn, cb) {
 							for (var key in item) {
 								if (typeof item[key] == 'function') {
-									item[key] = item[key](data);
+									//item[key] = item[key](data, {});
+									item[key] = item[key](data, {
+										get: function(table, index, block) {
+											if(!this.map[table]) {
+												throw new Error('Table not available: ' + table);
+											}
+											if(block) {
+												var blockIndex = this.map[table].indexOf(block);
+											} else {
+												var blockIndex = 0;
+											}
+											if(blockIndex === -1) {
+												throw new Error(`Table ${table} not available in block: ` + block);
+											}
+											return this.data[this.map[table][blockIndex]][table][index];
+										}.bind({data: data, map: map})
+									});
 								}
 							}
 							conn.insert(table, item, function(err, result) {
