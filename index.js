@@ -109,7 +109,10 @@ module.exports = function(conn, dbname, structSQL) {
 												throw new Error(`Table ${table} not available in block: ` + block);
 											}
 											return this.data[this.map[table][blockIndex]][table][index];
-										}.bind({data: data, map: map})
+										}.bind({data: data, map: map}),
+										self: function() {
+											return this.item;
+										}.bind({item: item})
 									});
 								}
 							}
