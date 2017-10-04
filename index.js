@@ -80,7 +80,7 @@ module.exports = function(conn, dbname, structSQL) {
 							}
 							conn.insert(table, item, function(err, result) {
 								if (err) {
-									cb(err);
+									cb({context: table, item: item, error: err});
 								} else {
 									item._insertId = result.insertId;
 									cb(null, conn);
