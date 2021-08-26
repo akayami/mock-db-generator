@@ -1,6 +1,6 @@
 {
   "name": "mock-db-generator",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "A tool to deploy and populate data in a database for testing and dev.",
   "main": "index.js",
   "scripts": {
