@@ -23,6 +23,12 @@
   },
   "homepage": "https://github.com/akayami/mock-db-generator#readme",
   "dependencies": {
-    "async": "^1.5.2"
+    "async": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "merge": "^2.1.1",
+    "mocha": "^9.1.0",
+    "mysql": "^2.18.1"
   }
 }
